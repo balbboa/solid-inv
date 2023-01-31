@@ -7,31 +7,33 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Product {
+model Modelo {
   id         String   @id @default(uuid())
   name       String
   bar_code   String   @unique
   price      Decimal
   created_at DateTime @default(now())
 
-  ProductCategory ProductCategory[]
-  @@map("products")
+  ModeloFabricante ModeloFabricante[]
+
+  @@map("modelos")
 }
 
-model Category {
+model Fabricante {
   id   String @id @default(uuid())
   name String
 
-  ProductCategory ProductCategory[]
-  @@map("categories")
+  ModeloFabricante ModeloFabricante[]
+
+  @@map("fabricantes")
 }
 
-model ProductCategory {
-  id          String   @id @default(uuid())
-  id_product  String
-  product     Product  @relation(fields: [id_product], references: [id])
-  id_category String
-  category    Category @relation(fields: [id_category], references: [id])
+model ModeloFabricante {
+  id            String     @id @default(uuid())
+  id_modelo     String
+  modelo        Modelo     @relation(fields: [id_modelo], references: [id])
+  id_fabricante String
+  fabricante    Fabricante @relation(fields: [id_fabricante], references: [id])
 
-  @@map("products_categories")
+  @@map("modelos_fabricantes")
 }

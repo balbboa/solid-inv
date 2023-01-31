@@ -1,27 +1,27 @@
 import { Request, Response } from "express";
 import { prismaClient } from "../database/prismaClient";
 
-export class CreateProductWithExistCategory {
+export class CreateModeloWithExistFabricante {
   async handle(request: Request, response: Response) {
-    const { name, price, bar_code, id_category } = request.body;
+    const { name, price, bar_code, id_fabricante } = request.body;
 
-    const product = await prismaClient.productCategory.create({
+    const modelo = await prismaClient.modeloFabricante.create({
       data: {
-        product: {
+        modelo: {
           create: {
             bar_code,
             name,
             price,
           },
         },
-        category: {
+        fabricante: {
           connect: {
-            id: id_category,
+            id: id_fabricante,
           },
         },
       },
     });
 
-    return response.json(product);
+    return response.json(modelo);
   }
 }

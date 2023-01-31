@@ -1,16 +1,16 @@
 import { Request, Response } from "express";
 import { prismaClient } from "../database/prismaClient";
 
-export class CreateCategoryController {
+export class CreateFabricanteController {
   async handle(request: Request, response: Response) {
     const { name } = request.body;
 
-    const category = await prismaClient.category.create({
+    const fabricante = await prismaClient.fabricante.create({
       data: {
         name,
       },
     });
 
-    return response.json(category);
+    return response.json(fabricante);
   }
 }
